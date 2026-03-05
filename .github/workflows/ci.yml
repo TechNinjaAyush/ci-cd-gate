@@ -9,19 +9,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.25"
 
-    - name: Setup Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: "1.25"
+      - name: Cache Go modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/go/pkg/mod
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
 
-    - name: Download dependencies
-      run: go mod download
+      - name: Download dependencies
+        run: go mod download
 
-    - name: Run tests
-      run: go test ./...
-    - name: Build application
-      run: go build -o app
+      - name: Run tests
+        run: go test ./...
+
+      - name: Build application
+        run: go build -o app
+
+      - name: Build Docker image
+        run: docker build -t myapp:${{ github.sha }} .
+
+      - name: List Docker images
+        run: docker images 
+
+        

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -30,15 +31,40 @@ func setupRouter() *gin.Engine {
 
 	// POST /tasks - Create a new task
 	r.POST("/tasks", func(c *gin.Context) {
+
 		var newTask Task
+
+		// Bind JSON
 		if err := c.ShouldBindJSON(&newTask); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "invalid request body",
+			})
 			return
 		}
+
+		// Simple validation
+		if newTask.Title == "" {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "title is required",
+			})
+			return
+		}
+
+		// Generate ID
 		lastID++
 		newTask.ID = lastID
+
+		// Append task
 		tasks = append(tasks, newTask)
-		c.JSON(http.StatusCreated, newTask)
+
+		// Log task creation
+		log.Printf("Task created: %+v\n", newTask)
+
+		// Response
+		c.JSON(http.StatusCreated, gin.H{
+			"message": "task created successfully",
+			"task":    newTask,
+		})
 	})
 
 	// PUT /tasks/:id - Update a task

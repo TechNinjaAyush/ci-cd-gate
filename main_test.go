@@ -38,11 +38,15 @@ func TestPostTask(t *testing.T) {
 
 	assert.Equal(t, http.StatusCreated, w.Code)
 
-	var createdTask Task
-	err := json.Unmarshal(w.Body.Bytes(), &createdTask)
+	var response struct {
+		Message string `json:"message"`
+		Task    Task   `json:"task"`
+	}
+	err := json.Unmarshal(w.Body.Bytes(), &response)
 	assert.NoError(t, err)
-	assert.Equal(t, "Test Task", createdTask.Title)
-	assert.Equal(t, false, createdTask.Completed)
+	assert.Equal(t, "test task created successfully", response.Message)
+	assert.Equal(t, "Test Task", response.Task.Title)
+	assert.Equal(t, false, response.Task.Completed)
 }
 
 func TestUpdateTask(t *testing.T) {

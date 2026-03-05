@@ -62,7 +62,7 @@ func setupRouter() *gin.Engine {
 
 		// Response
 		c.JSON(http.StatusCreated, gin.H{
-			"message": "task created successfully",
+			"message": "test task created successfully",
 			"task":    newTask,
 		})
 	})

@@ -29,6 +29,10 @@ func setupRouter() *gin.Engine {
 		c.JSON(http.StatusOK, tasks)
 	})
 
+	r.GET("/add", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusAccepted, gin.H{"message": "hello how are you"})
+	})
+
 	// POST /tasks - Create a new task
 	r.POST("/tasks", func(c *gin.Context) {
 

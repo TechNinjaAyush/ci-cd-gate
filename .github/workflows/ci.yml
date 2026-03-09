@@ -62,4 +62,7 @@ jobs:
           echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
       - name: Deploy to Kubernetes
-        run: kubectl apply -f k8s_manifest/deploy.yaml
+        run: kubectl apply -f k8s_manifest/deploy.yaml 
+
+      - name:  Check if file is deployed or not 
+        run: kubectl get deployment  

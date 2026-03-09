@@ -50,7 +50,9 @@ jobs:
       - name:  Push image to registry 
         run :  docker push ${{ secrets.DOCKERUSERNAME }}/newapp:${{ github.sha }} 
 
-
+      
+      
+       
        
 
 

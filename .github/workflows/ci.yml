@@ -55,13 +55,11 @@ jobs:
 
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4
+        
       - name: Create kind cluster
         uses: helm/kind-action@v1  
 
-      - name: Configure kubeconfig
-        run: |
-          mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" > base64 -d > $HOME/.kube/config
+      
 
       - name: Deploy to Kubernetes
         run: kubectl apply -f k8s_manifest/deploy.yaml 

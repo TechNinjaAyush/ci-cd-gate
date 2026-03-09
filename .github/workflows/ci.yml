@@ -55,7 +55,7 @@ jobs:
 
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4
-        
+
       - name: Create kind cluster
         uses: helm/kind-action@v1  
 
@@ -66,3 +66,6 @@ jobs:
 
       - name:  Check if file is deployed or not 
         run: kubectl get deployment  
+
+      - name:  check pods 
+        run: kubectl get  pods   

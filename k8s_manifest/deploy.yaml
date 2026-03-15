@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: ashkk220/newapp:eda1fb67d27d797ecc82a9fa99576b50cc8afc3a
+        image: ashkk220/newapp:latest
 
         
         ports:

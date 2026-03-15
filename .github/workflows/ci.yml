@@ -53,19 +53,4 @@ jobs:
         run: |
           sed -i "s|image:.*|image: ${{ secrets.DOCKERUSERNAME }}/newapp:${{ github.sha }}|" k8s_manifest/deploy.yaml
 
-      - name: Setup kubectl
-        uses: azure/setup-kubectl@v4
-
-      - name: Create kind cluster
-        uses: helm/kind-action@v1  
-
       
-
-      - name: Deploy to Kubernetes
-        run: kubectl apply -f k8s_manifest/deploy.yaml 
-
-      - name:  Check if file is deployed or not 
-        run: kubectl get deployment  
-
-      - name:  check pods 
-        run: kubectl get  pods   

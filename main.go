@@ -107,6 +107,8 @@ func setupRouter() *gin.Engine {
 	return r
 }
 
+// Main entry point for the application.
+// Triggering Argo CD sync on dev branch.
 func main() {
 	r := setupRouter()
 	r.Run(":8080")
